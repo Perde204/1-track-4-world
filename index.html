@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ОДИН ТРЕК — ЧЕТЫРЕ МИРА</title>
+<style>
+:root{--bg:#050507;--sf:#101014;--tx:#f4f4f6;--mu:#8d8a98;--bd:#2b2b33;--ac:#7dfba8;--on:#04120a;--h1:#ff3d71;--h2:#36d7ff;--h3:#ffd23f;--h4:#b57bff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{--bg:#f4f1ea;--sf:#fff;--tx:#0b0b0f;--mu:#5d5a66;--bd:#0b0b0f;--ac:#00c46a;--h1:#ef2a5d;--h2:#0098c7;--h3:#e6a800;--h4:#8a4dff}
+*{box-sizing:border-box}
+body{margin:0;color:var(--tx);font:15px/1.45 "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;background:radial-gradient(60vw 50vh at 8% 0,color-mix(in srgb,var(--h4) 22%,transparent),transparent),radial-gradient(50vw 45vh at 100% 100%,color-mix(in srgb,var(--ac) 16%,transparent),transparent),var(--bg)}
+h1,h2,h3,.logo,.tag,.liveb{font-family:"Unbounded","Manrope",system-ui,sans-serif}
+h1,h2{margin:0}
+.hide{display:none!important}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:2px solid var(--bd);background:var(--sf);border-radius:14px;padding:10px 16px;font-weight:700;transition:transform .12s}
+button:hover{transform:translateY(-2px)}
+button.pr{background:var(--ac);border-color:var(--ac);color:var(--on)}
+input,select{background:var(--bg);border:2px solid var(--bd);border-radius:14px;padding:11px 13px;width:100%;outline:none}
+input:focus,select:focus{border-color:var(--ac)}
+.logo{font-weight:800;letter-spacing:.08em;font-size:12px;color:var(--mu)}
+.logo b{color:var(--ac)}
+.center{min-height:100vh;display:grid;place-items:center;padding:20px}
+.card{background:var(--sf);border:2px solid var(--bd);border-radius:24px;padding:30px;width:100%;max-width:420px;box-shadow:8px 8px 0 var(--ac)}
+.card h1{font-size:28px;line-height:1.1;margin:12px 0 8px;background:linear-gradient(90deg,var(--ac),var(--h2),var(--h4),var(--h1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mu);margin:0 0 20px}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:12px;color:var(--mu);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+.tabs{display:flex;gap:8px;margin-bottom:18px}
+.tabs button{flex:1}
+.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.err{color:var(--h1);font-size:13px;min-height:18px;margin:4px 0 8px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 20px;border-bottom:2px solid var(--bd);background:var(--sf)}
+.bar b{font-family:"Unbounded",sans-serif;font-size:13px}
+.menu{display:grid;gap:16px;max-width:440px;margin:11vh auto 0;padding:0 20px;text-align:center}
+.menu h2{font-size:32px;margin-bottom:6px}
+.menu button{padding:20px;font-size:17px;border-radius:18px}
+.menu button.pr{box-shadow:6px 6px 0 var(--h1)}
+.dots{display:flex;gap:8px;justify-content:center;margin:6px 0 14px}
+.dots i{width:14px;height:14px;border-radius:50%}
+.set{max-width:500px;margin:30px auto;padding:0 20px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0;border-bottom:2px dashed var(--bd);font-weight:700}
+.row select{width:auto}
+.sw{width:52px;height:30px;border-radius:15px;padding:0;position:relative;background:var(--bg)}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--mu);transition:.2s}
+.sw.on{background:var(--ac);border-color:var(--ac)}
+.sw.on::after{left:25px;background:var(--on)}
+.live{display:grid;grid-template-columns:1fr 340px;gap:22px;padding:22px;height:calc(100vh - 62px - env(safe-area-inset-top,0px));min-height:520px}
+.main{display:flex;flex-direction:column;align-items:center;min-width:0;min-height:0;padding-top:2vh}
+.tile{position:relative;border-radius:16px;overflow:hidden;background:#0a0a0d;color:#fff;display:flex;align-items:flex-end;aspect-ratio:16/9;border:2px solid var(--c,var(--bd));box-shadow:0 0 22px color-mix(in srgb,var(--c,transparent) 35%,transparent)}
+.tile.big{--c:var(--ac);flex:none;width:min(clamp(320px,56%,660px),calc(44vh*16/9))}
+.guests{margin:auto 0;width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.guests .tile:nth-child(1){--c:var(--h1)}.guests .tile:nth-child(2){--c:var(--h2)}.guests .tile:nth-child(3){--c:var(--h3)}.guests .tile:nth-child(4){--c:var(--h4)}
+.tile canvas{position:absolute;inset:0;width:100%;height:100%}
+.tag{position:relative;z-index:1;margin:8px;padding:4px 10px;border-radius:99px;font-size:10px;font-weight:700;background:rgba(0,0,0,.72)}
+.liveb{position:absolute;top:10px;left:10px;z-index:1;background:var(--h1);color:#fff;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;animation:p 1.4s infinite}
+@keyframes p{50%{opacity:.45}}
+.chat{display:flex;flex-direction:column;background:var(--sf);border:2px solid var(--bd);border-radius:20px;min-height:0;overflow:hidden}
+.chat h3{margin:0;padding:14px 16px;font-size:11px;letter-spacing:.1em;border-bottom:2px solid var(--bd);color:var(--ac)}
+.msgs{flex:1;overflow-y:auto;padding:12px 16px;font-size:14px}
+.msgs p{margin:0 0 8px;word-wrap:break-word}
+.msgs b{margin-right:6px}
+.send{display:flex;gap:8px;padding:12px;border-top:2px solid var(--bd)}
+.send button{padding:10px 14px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ac);color:var(--on);font-weight:700;padding:10px 18px;border-radius:99px;z-index:9}
+@media(max-width:860px){.live{grid-template-columns:1fr;height:auto;padding:14px}.main{padding-top:0;gap:16px}.tile.big{width:100%}.guests{margin:0;grid-template-columns:repeat(2,1fr);gap:12px}.chat{height:340px}}
+
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:44px 44px;opacity:.28;-webkit-mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%)}
+section:not(.hide){animation:in .4s ease both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}}
+.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--sf) 80%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#bW::before{content:"▶  "}#bS::before{content:"⚙  "}
+.menu button{border-radius:20px}
+.menu button:not(.pr){box-shadow:6px 6px 0 var(--h2)}
+.menu button:active,.card button:active{transform:translate(3px,3px);box-shadow:none}
+.set{background:var(--sf);border:2px solid var(--bd);border-radius:24px;padding:6px 24px;box-shadow:8px 8px 0 var(--h4)}
+.row:last-child{border-bottom:0}
+.tile{transition:transform .25s,box-shadow .25s}
+.tile:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 10px 36px color-mix(in srgb,var(--c) 55%,transparent)}
+.tile::after{content:"";position:absolute;inset:auto 0 0;height:55%;background:linear-gradient(transparent,rgba(0,0,0,.7));pointer-events:none}
+.tile .tag{z-index:2}
+.guests .tag::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px;box-shadow:0 0 8px currentColor}
+.tile.big{box-shadow:0 0 40px color-mix(in srgb,var(--ac) 45%,transparent)}
+.msgs p{background:color-mix(in srgb,var(--bg) 70%,transparent);border-radius:12px;padding:6px 10px;animation:in .25s ease both}
+.msgs::-webkit-scrollbar{width:6px}.msgs::-webkit-scrollbar-thumb{background:var(--bd);border-radius:6px}
+.send input{border-radius:99px;padding-left:16px}
+.send button{border-radius:50%;width:44px;height:44px;padding:0;flex:none}
+.chat{box-shadow:0 0 30px color-mix(in srgb,var(--h4) 25%,transparent)}
+.logo{display:inline-block;padding:4px 10px;border:2px solid var(--bd);border-radius:99px}
+.rt{display:flex;gap:8px;align-items:center}.pill{font:700 11px "Unbounded",sans-serif;padding:6px 11px;border:2px solid var(--bd);border-radius:99px;white-space:nowrap}#tm{color:var(--h3);border-color:var(--h3)}#pool{color:var(--ac);border-color:var(--ac)}
+button.sm{padding:6px 12px;border-radius:99px}
+.main{position:relative}
+.vb{position:absolute;top:8px;right:8px;z-index:3;padding:3px 10px;font-size:12px;border-radius:99px;background:var(--c);border-color:var(--c);color:#000}
+.pc{position:absolute;right:10px;bottom:12px;z-index:3;font:800 13px "Unbounded",sans-serif;color:#fff;font-style:normal}
+.pb{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.18);z-index:3}.pb u{display:block;height:100%;width:0;background:var(--c);transition:width .5s}
+.pin{padding:8px 14px;font-size:13px;font-weight:700;background:color-mix(in srgb,var(--h3) 18%,transparent);border-bottom:2px solid var(--bd)}
+.rx{display:flex;gap:6px;padding:8px 12px 0}.rx button{flex:1;padding:6px;font-size:18px;border-radius:12px}
+.bdg{font:800 9px "Unbounded",sans-serif;font-style:normal;padding:2px 6px;border-radius:6px;margin-right:6px;color:#000}.bdg.MOD{background:var(--ac)}.bdg.JUDGE{background:var(--h1);color:#fff}
+.fl{position:absolute;bottom:10px;font-size:30px;pointer-events:none;z-index:6;animation:up 2.2s ease-out forwards}
+@keyframes up{to{transform:translateY(-60vh) rotate(18deg);opacity:0}}
+.modal{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:rgba(0,0,0,.65);padding:20px;backdrop-filter:blur(6px)}
+.mc{background:var(--sf);border:2px solid var(--bd);border-radius:24px;padding:24px;width:100%;max-width:380px;display:grid;gap:14px;box-shadow:8px 8px 0 var(--h1)}.mc.big{max-width:680px;box-shadow:8px 8px 0 var(--ac)}.mc canvas{width:100%;border-radius:14px;background:#0a0a0d}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chips button{padding:7px 14px;border-radius:99px}.chips button.on{background:var(--ac);border-color:var(--ac);color:var(--on)}
+.cw{max-width:1000px;margin:26px auto;padding:0 20px}.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;margin-top:20px}
+.cc{background:var(--sf);border:2px solid var(--bd);border-radius:18px;overflow:hidden;cursor:pointer;transition:.2s}.cc:hover{transform:translateY(-4px);border-color:var(--ac)}.cc canvas{width:100%;display:block}.cc div{padding:12px 14px}.cc b{display:block}.cc span{color:var(--mu);font-size:13px}
+#bC::before{content:"🎬  "}
+@media(max-width:860px){#pool,.tt{display:none}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Unbounded:wght@600;800&display=swap&subset=cyrillic">
+</head>
+<body>
+
+<section id="auth" class="center">
+ <div class="card">
+  <div class="logo">ШОУ · <b>АЛМАТЫ</b></div>
+  <h1 data-i="title">ОДИН ТРЕК — ЧЕТЫРЕ МИРА</h1>
+  <p class="sub" data-i="tag">Один звук. Четыре продюсера. Один победитель.</p>
+  <div class="tabs"><button id="tL" class="on" data-i="login">Вход</button><button id="tR" data-i="reg">Регистрация</button></div>
+  <div class="fld hide" id="fN"><label data-i="name">Имя</label><input id="iN" autocomplete="nickname"></div>
+  <div class="fld"><label>Email</label><input id="iE" type="email" autocomplete="email"></div>
+  <div class="fld"><label data-i="pass">Пароль</label><input id="iP" type="password" autocomplete="current-password"></div>
+  <div class="err" id="er"></div>
+  <button class="pr" id="go" style="width:100%" data-i="login">Вход</button>
+ </div>
+</section>
+
+<section id="home" class="hide">
+ <div class="bar"><span class="logo">ШОУ · <b>АЛМАТЫ</b></span><button id="out" data-i="out">Выйти</button></div>
+ <div class="menu">
+  <div class="dots"><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i></div>
+  <h2><span data-i="hi">Привет</span>, <span id="uN"></span></h2>
+  <button class="pr" id="bW" data-i="watch">Смотреть трансляции</button>
+  <button id="bC" data-i="clips">Клипы и архив</button>
+  <button id="bS" data-i="settings">Настройки</button>
+ </div>
+</section>
+
+<section id="settings" class="hide">
+ <div class="bar"><button class="back" data-i="back">← Назад</button><b data-i="settings">Настройки</b><span></span></div>
+ <div class="set">
+  <div class="row"><span data-i="sound">Звук</span><button class="sw on" id="sSnd" aria-label="sound"></button></div>
+  <div class="row"><span data-i="notif">Уведомления</span><button class="sw on" id="sNot" aria-label="notifications"></button></div>
+  <div class="row"><span data-i="lang">Язык</span><select id="sLg"><option value="ru">Русский</option><option value="kk">Қазақша</option><option value="en">English</option></select></div>
+  <div class="row"><span data-i="theme">Тема</span><button id="sTh"></button></div>
+ </div>
+</section>
+
+<section id="clips" class="hide"><div class="bar"><button class="back" data-i="back">← Назад</button><b data-i="clips">Клипы и архив</b><span></span></div><div class="cw"><div class="chips" id="cf"><button class="on" data-f="-1" data-i="all">Все</button><button data-f="0">Hip-Hop</button><button data-f="1">Electronic</button><button data-f="2">Pop</button><button data-f="3">Experimental</button></div><div class="cg" id="cg"></div></div></section>
+
+<section id="stream" class="hide">
+ <div class="bar"><button class="back" data-i="back">← Назад</button><b class="tt" data-i="title">ОДИН ТРЕК — ЧЕТЫРЕ МИРА</b><span class="rt"><span class="pill" id="tm"></span><span class="pill" id="pool"></span><button class="pr sm" id="sup">💸</button></span></div>
+ <div class="live">
+  <div class="main">
+   <div class="tile big"><canvas></canvas><span class="liveb">LIVE</span><span class="tag" data-i="jg"></span></div>
+   <div class="guests">
+    <div class="tile"><canvas></canvas><button class="vb">🗳</button><span class="tag" style="color:var(--h1)">Hip-Hop</span><em class="pc">0%</em><i class="pb"><u></u></i></div>
+    <div class="tile"><canvas></canvas><button class="vb">🗳</button><span class="tag" style="color:var(--h2)">Electronic</span><em class="pc">0%</em><i class="pb"><u></u></i></div>
+    <div class="tile"><canvas></canvas><button class="vb">🗳</button><span class="tag" style="color:var(--h3)">Pop</span><em class="pc">0%</em><i class="pb"><u></u></i></div>
+    <div class="tile"><canvas></canvas><button class="vb">🗳</button><span class="tag" style="color:var(--h4)">Experimental</span><em class="pc">0%</em><i class="pb"><u></u></i></div>
+   </div>
+  </div>
+  <aside class="chat">
+   <h3 data-i="chat">ЧАТ ТРАНСЛЯЦИИ</h3>
+   <div class="pin" id="pin"></div>
+   <div class="msgs" id="ms"></div>
+   <div class="rx"><button>🔥</button><button>❤️</button><button>👏</button><button>😂</button></div>
+   <div class="send"><input id="ci" maxlength="200" data-p="msg"><button class="pr" id="cs">➤</button></div>
+  </aside>
+ </div>
+</section>
+
+<div class="modal hide" id="sm"><div class="mc"><h3 data-i="supt"></h3><select id="sp"><option value="0">Hip-Hop</option><option value="1">Electronic</option><option value="2">Pop</option><option value="3">Experimental</option></select><div class="chips" id="am"><button>500</button><button class="on">1000</button><button>5000</button><button>10000</button></div><button class="pr" id="sg" data-i="supg"></button> <button id="sx" data-i="close"></button></div></div>
+<div class="modal hide" id="cm"><div class="mc big"><canvas id="cmc" width="640" height="360"></canvas><b id="cmt"></b><button id="cx" data-i="close"></button></div></div>
+<script>
+const L={
+ru:{title:"ОДИН ТРЕК — ЧЕТЫРЕ МИРА",tag:"Один звук. Четыре продюсера. Один победитель.",login:"Вход",reg:"Регистрация",name:"Имя",pass:"Пароль",out:"Выйти",hi:"Привет",watch:"Смотреть трансляции",settings:"Настройки",back:"← Назад",sound:"Звук",notif:"Уведомления",lang:"Язык",theme:"Тема",dark:"Тёмная",light:"Светлая",src:"Исходник: домбра",jg:"Судьи и комментаторы",j1:"Судья",j2:"Комментатор",chat:"ЧАТ ТРАНСЛЯЦИИ",msg:"Написать сообщение",bad:"Неверный email или пароль",ex:"Email уже зарегистрирован",fill:"Заполните все поля (пароль от 4 символов)",on:"Включено",off:"Выключено"},
+kk:{title:"БІР ТРЕК — ТӨРТ ӘЛЕМ",tag:"Бір дыбыс. Төрт продюсер. Бір жеңімпаз.",login:"Кіру",reg:"Тіркелу",name:"Аты",pass:"Құпиясөз",out:"Шығу",hi:"Сәлем",watch:"Трансляцияны көру",settings:"Баптаулар",back:"← Артқа",sound:"Дыбыс",notif:"Хабарламалар",lang:"Тіл",theme:"Тақырып",dark:"Қараңғы",light:"Жарық",src:"Бастапқы: домбыра",jg:"Төрешілер мен комментаторлар",j1:"Төреші",j2:"Комментатор",chat:"ТРАНСЛЯЦИЯ ЧАТЫ",msg:"Хабарлама жазу",bad:"Email немесе құпиясөз қате",ex:"Email тіркелген",fill:"Барлық өрісті толтырыңыз (құпиясөз 4+ таңба)",on:"Қосулы",off:"Өшірулі"},
+en:{title:"ONE TRACK — FOUR WORLDS",tag:"One sound. Four producers. One winner.",login:"Log in",reg:"Sign up",name:"Name",pass:"Password",out:"Log out",hi:"Hello",watch:"Watch streams",settings:"Settings",back:"← Back",sound:"Sound",notif:"Notifications",lang:"Language",theme:"Theme",dark:"Dark",light:"Light",src:"Source: dombra",jg:"Judges & commentators",j1:"Judge",j2:"Commentator",chat:"STREAM CHAT",msg:"Send a message",bad:"Wrong email or password",ex:"Email already registered",fill:"Fill all fields (password 4+ chars)",on:"On",off:"Off"}};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const S={lang:"ru",theme:matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light",sound:true,notif:true,user:null,users:{}};
+const st={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+try{Object.assign(S,JSON.parse(st.get("otfw")||"{}"))}catch(e){}
+const save=()=>{st.set("otfw",JSON.stringify(S));try{syncP()}catch(e){}};
+const t=k=>L[S.lang][k]||k;
+function apply(){
+ document.documentElement.dataset.theme=S.theme;document.documentElement.lang=S.lang;
+ $$("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
+ $$("[data-p]").forEach(e=>e.placeholder=t(e.dataset.p));
+ $("#sTh").textContent=S.theme==="dark"?"🌙 "+t("dark"):"☀️ "+t("light");
+ $("#sSnd").classList.toggle("on",S.sound);$("#sNot").classList.toggle("on",S.notif);$("#sLg").value=S.lang;
+ $("#uN").textContent=S.user?S.user.name:"";
+ document.title=t("title");
+}
+function show(id){["auth","home","settings","stream","clips"].forEach(s=>$("#"+s).classList.toggle("hide",s!==id));if(id==="stream"){startChat();playV()}else stopChat();}
+let mode="login";
+function setMode(m){mode=m;$("#tL").classList.toggle("on",m==="login");$("#tR").classList.toggle("on",m==="reg");$("#fN").classList.toggle("hide",m==="login");$("#go").textContent=t(m==="login"?"login":"reg");$("#er").textContent="";}
+$("#tL").onclick=()=>setMode("login");$("#tR").onclick=()=>setMode("reg");
+const hash=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))|0;return String(h)};
+$("#go").onclick=()=>{
+ const e=$("#iE").value.trim().toLowerCase(),p=$("#iP").value,n=$("#iN").value.trim(),er=$("#er");
+ if(!e||p.length<4||(mode==="reg"&&!n)){er.textContent=t("fill");return}
+ if(mode==="reg"){
+  if(S.users[e]){er.textContent=t("ex");return}
+  S.users[e]={name:n,h:hash(p)};S.user={email:e,name:n};
+ }else{
+  const u=S.users[e];if(!u||u.h!==hash(p)){er.textContent=t("bad");return}
+  S.user={email:e,name:u.name};
+ }
+ save();apply();show("home");
+};
+$("#out").onclick=()=>{S.user=null;save();show("auth")};
+$("#bW").onclick=()=>show("stream");$("#bS").onclick=()=>show("settings");
+$$(".back").forEach(b=>b.onclick=()=>show("home"));
+function toast(m,ms){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.append(d);setTimeout(()=>d.remove(),ms||1600)}
+$("#sSnd").onclick=()=>{S.sound=!S.sound;save();apply();toast(t("sound")+": "+t(S.sound?"on":"off"))};
+$("#sNot").onclick=()=>{S.notif=!S.notif;save();apply();toast(t("notif")+": "+t(S.notif?"on":"off"))};
+$("#sLg").onchange=e=>{S.lang=e.target.value;save();apply();setMode(mode)};
+$("#sTh").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";save();apply()};
+
+/* chat */
+const names=["Aigerim","DJ_Arman","beatmaker77","Dana","Nurlan","almaty_vibes","Kamila","Timur"],cols=["#ff3d71","#36d7ff","#ffd23f","#7dfba8","#b57bff","#ff8a3d"];
+const phr=["🔥🔥🔥","домбра огонь","хип-хоп лидирует!","электроника забирает","поп зашёл","эксперимент — космос","голос за №2","ещё 5 минут!","Алматы 🤝","это бит!","KEKW","жду финал"];
+let timer=null,ctx=null;
+function beep(){if(!S.sound)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=660;g.gain.value=.04;o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.07)}catch(e){}}
+function addMsg(n,tx,c,mine,role){
+ const m=$("#ms"),p=document.createElement("p"),b=document.createElement("b");
+ b.textContent=n+":";b.style.color=c;if(role){const r=document.createElement("em");r.className="bdg "+role;r.textContent=role;p.append(r);pinSet(tx)}p.append(b,document.createTextNode(tx));m.append(p);
+ while(m.children.length>120)m.firstChild.remove();m.scrollTop=m.scrollHeight;
+ if(!mine)beep();
+}
+function startChat(){
+ $("#ms").innerHTML="";pinSet(t("pin0"));tk=setInterval(tick,1000);tm();renderPool();renderV();
+ timer=setInterval(()=>{const n=names[Math.random()*names.length|0],r=ROLE[n];addMsg(n,pick(r?ann:phr),cols[Math.random()*cols.length|0],0,r)},1800);
+ anim();
+}
+function stopChat(){clearInterval(timer);clearInterval(tk);timer=null}
+function playV(){$$("#stream video").forEach(v=>{v.muted=!S.sound;v.loop=true;v.play().catch(()=>{v.muted=true;v.play().catch(()=>{})})})}
+function send(){const i=$("#ci"),v=i.value.trim();if(!v)return;addMsg(S.user?S.user.name:"guest",v,"var(--ac)",true);i.value=""}
+$("#cs").onclick=send;$("#ci").onkeydown=e=>{if(e.key==="Enter")send()};
+
+/* visual placeholders for video windows */
+const pal=["#7dfba8","#ff3d71","#36d7ff","#ffd23f","#b57bff"];
+function anim(){
+ const cs=$$("#stream canvas");
+ (function f(ts){
+  if(!timer)return;
+  cs.forEach((c,k)=>{
+   const w=c.width=c.clientWidth/2|0,h=c.height=c.clientHeight/2|0,x=c.getContext("2d");
+   x.fillStyle="#111";x.fillRect(0,0,w,h);x.fillStyle=pal[k];
+   const n=k?14:40,bw=w/n;
+   for(let i=0;i<n;i++){const v=(Math.sin(ts/300+i*.7+k)+1)/2*(.25+.6*Math.abs(Math.sin(ts/900+i*(k+1))));x.fillRect(i*bw+1,h-v*h*.8,bw-2,v*h*.8)}
+  });
+  requestAnimationFrame(f);
+ })(0);
+}
+
+Object.assign(L.ru,{clips:"Клипы и архив",all:"Все",ph1:"Создание трека",ph2:"Выступления",ph3:"Голосование",win:"Победитель",supt:"Поддержать участника",supg:"Отправить",close:"Закрыть",pin0:"Голосуйте за лучший трек!"});
+Object.assign(L.kk,{clips:"Клиптер мен архив",all:"Барлығы",ph1:"Трек жасау",ph2:"Орындау",ph3:"Дауыс беру",win:"Жеңімпаз",supt:"Қатысушыны қолдау",supg:"Жіберу",close:"Жабу",pin0:"Үздік трекке дауыс беріңіз!"});
+Object.assign(L.en,{clips:"Clips & archive",all:"All",ph1:"Making the track",ph2:"Performances",ph3:"Voting",win:"Winner",supt:"Support a producer",supg:"Send",close:"Close",pin0:"Vote for the best track!"});
+const P=["Hip-Hop","Electronic","Pop","Experimental"],GC=["#ff3d71","#36d7ff","#ffd23f","#b57bff"],pick=a=>a[Math.random()*a.length|0];
+const ROLE={DJ_Arman:"MOD",Aigerim:"JUDGE",Timur:"JUDGE"},ann=["Голосуем за лучший трек!","Осталось мало времени ⏱","Не забудьте проголосовать 🗳","Судьи в шоке 🔥"];
+let tk=null,V=[18,12,15,9],mine=-1,pool=120000,amt=1000,pi=0,pl=600,db=null,uid=null,dbOn=false,DB=[0,0,0,0];
+const PH=[["ph1",600],["ph2",300],["ph3",120]];
+const pinSet=x=>{$("#pin").textContent="📌 "+x};
+function renderV(){const c=dbOn?DB:V,tot=c.reduce((a,b)=>a+b,0)||1;$$(".guests .tile").forEach((e,k)=>{e.querySelector(".pc").textContent=Math.round(c[k]/tot*100)+"%";e.querySelector(".pb u").style.width=c[k]/tot*100+"%";e.querySelector(".vb").textContent=mine===k?"✓":"🗳"})}
+function vote(k){if(mine===k)return;if(mine>=0)V[mine]--;V[k]++;mine=k;if(db&&uid)db.doc("votes/"+uid).set({c:k}).catch(()=>{dbOn=false;renderV()});renderV();toast("🗳 "+P[k])}
+$$(".guests .vb").forEach((b,k)=>b.onclick=e=>{e.stopPropagation();vote(k)});
+const renderPool=()=>{$("#pool").textContent="💰 "+pool.toLocaleString("ru-RU")+" ₸"};
+function tm(){$("#tm").textContent=t(PH[pi][0])+" · "+(pl/60|0)+":"+String(pl%60).padStart(2,"0")}
+function tick(){pl--;if(pl<0){pi++;if(pi>2){pi=0;const c=dbOn?DB:V;toast("🏆 "+t("win")+": "+P[c.indexOf(Math.max(...c))],5000)}pl=PH[pi][1]}tm();
+ if(!dbOn&&Math.random()<.8){V[Math.random()*4|0]++;renderV()}
+ if(Math.random()<.05){pool+=pick([500,1000,2000]);renderPool()}
+ if(Math.random()<.35)fl(pick(["🔥","❤️","👏","😂"]))}
+function fl(e){const m=$(".main"),s=document.createElement("span");s.className="fl";s.textContent=e;s.style.left=(8+Math.random()*80)+"%";m.append(s);setTimeout(()=>s.remove(),2300)}
+$$(".rx button").forEach(b=>b.onclick=()=>{fl(b.textContent);fl(b.textContent)});
+$("#sup").onclick=()=>$("#sm").classList.remove("hide");$("#sx").onclick=()=>$("#sm").classList.add("hide");
+$$("#am button").forEach(b=>b.onclick=()=>{$$("#am button").forEach(x=>x.classList.remove("on"));b.classList.add("on");amt=+b.textContent});
+$("#sg").onclick=()=>{pool+=amt;renderPool();addMsg(S.user?S.user.name:"guest","💸 "+P[$("#sp").value]+" +"+amt+" ₸","var(--ac)",1);$("#sm").classList.add("hide");toast("💸 "+amt+" ₸")};
+/* clips */
+const CL=[["Dombra → Trap drop",0,"0:42","12.4K"],["Electro-dombra build",1,"0:58","9.8K"],["Pop hook + vocal chop",2,"0:35","15.1K"],["Noise textures",3,"1:05","4.2K"],["Final vote reaction",0,"0:20","21.7K"],["Judges’ reaction",2,"0:48","7.5K"],["Synth over dombra",1,"0:51","11.3K"],["Glitch finale",3,"0:29","5.9K"]];
+function thumb(c,g,ts){const x=c.getContext("2d"),w=c.width,h=c.height,gr=x.createLinearGradient(0,0,w,h);gr.addColorStop(0,"#0a0a0d");gr.addColorStop(1,GC[g]+"66");x.fillStyle=gr;x.fillRect(0,0,w,h);x.fillStyle=GC[g];const n=26;for(let i=0;i<n;i++){const v=(Math.sin(ts/400+i*.6+g)+1)/2*.7+.1;x.fillRect(i*w/n+2,h-v*h*.7,w/n-4,v*h*.7)}}
+let cmOn=false;
+function renderClips(f){const g=$("#cg");g.innerHTML="";CL.forEach((c,i)=>{if(f>=0&&c[1]!==f)return;const d=document.createElement("div");d.className="cc";d.innerHTML='<canvas width="320" height="180"></canvas><div><b></b><span></span></div>';d.querySelector("b").textContent=c[0];d.querySelector("span").textContent=P[c[1]]+" · "+c[2]+" · 👁 "+c[3];thumb(d.querySelector("canvas"),c[1],i*900);d.onclick=()=>openClip(c);g.append(d)})}
+function openClip(c){$("#cmt").textContent=c[0]+" — "+P[c[1]];$("#cm").classList.remove("hide");cmOn=true;(function f(ts){if(!cmOn)return;thumb($("#cmc"),c[1],ts);requestAnimationFrame(f)})(0)}
+$("#cx").onclick=()=>{cmOn=false;$("#cm").classList.add("hide")};
+$$("#cf button").forEach(b=>b.onclick=()=>{$$("#cf button").forEach(x=>x.classList.remove("on"));b.classList.add("on");renderClips(+b.dataset.f)});
+$("#bC").onclick=()=>{renderClips(-1);show("clips")};
+/* database (platform db; falls back to local when unavailable) */
+async function initDB(){try{if(!window.claude)return;const [d,u]=await Promise.all([claude.use("db"),claude.use("user")]);if(!d||!u)return;const id=await u.id();if(!id)return;db=d;uid=id;d.collection("votes").onSnapshot(q=>{DB=[0,0,0,0];q.docs.forEach(x=>{const c=(x.data()||{}).c;if(c>=0&&c<4)DB[c]++});dbOn=true;renderV()},()=>{dbOn=false});syncP()}catch(e){db=null}}
+function syncP(){if(db&&uid&&S.user)db.doc("data/users/"+uid+"/profile").set({name:S.user.name,email:S.user.email,lang:S.lang,theme:S.theme}).catch(()=>{})}
+apply();setMode("login");initDB();
+if(S.user)show("home");
+</script>
+</body>
+</html>
